@@ -1,5 +1,5 @@
-#ifndef COMMON_HPP
-#define COMMON_HPP
+#ifndef COMMONINC_HPP
+#define COMMONINC_HPP
 #   include <Arduino.h>
 #   include <Average.h>
 #   include <stdlib.h>
