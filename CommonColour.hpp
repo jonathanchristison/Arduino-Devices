@@ -23,11 +23,12 @@
 #define COLOUR_HPP
 
 #include "Commoninc.hpp"
+#include <Printable.h>
 
-#define WHITE 255,255,255
-#define OFF 0,0,0
+#define WHITE 255U,255U,255U
+#define OFF 0U,0U,0U
 
-class Colour
+class Colour : public Printable
 {
     public:
     //None is the default
@@ -35,6 +36,7 @@ class Colour
     {
         this->init(0U,0U,0U);
     }
+
     Colour(byte red, byte green, byte blue)
     {
         this->init(red, green, blue);
@@ -73,6 +75,7 @@ class Colour
     {
         return blue_;
     }
+
     String hex()
     {
         String red(this->red(), HEX);
@@ -84,11 +87,29 @@ class Colour
     void hex(String hex)
     {
         unsigned long hl = strtoul(hex.c_str(), NULL, 16);
-        this->red((byte) hl << 8);
-        this->green((byte) hl << 16);
-        this->blue((byte) hl << 32);
+        if(hl > 1677215)
+        {
+            Serial.println(F("Invalid Colour Code"));
+        }
+        else
+        {
+            this->red((hl >> 16 & 0xFF));
+            this->green((hl >> 8 & 0xFF));
+            this->blue((hl & 0xFF));
+        }
     }
 
+    virtual size_t printTo(Print& p) const
+    {
+        size_t n = 0;
+        n += p.print("R:\t");
+        n += p.print(red_, DEC);
+        n += p.print("\nG:\t");
+        n += p.print(green_, DEC);
+        n += p.print("\nB:\t");
+        n += p.print(blue_, DEC);
+        return n;
+    }
     private:
     void init(byte red, byte green, byte blue)
     {
