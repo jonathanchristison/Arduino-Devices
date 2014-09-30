@@ -26,9 +26,9 @@ namespace AnalogOutputDevice
 {
 LED::LED(int pinR, int pinG, int pinB)
 {
-	pinR_ = pinR;
-	pinG_ = pinG;
-	pinB_ = pinB;
+    pinR_ = pinR;
+    pinG_ = pinG;
+    pinB_ = pinB;
 }
 
 void LED::colour(Colour cval)
@@ -52,7 +52,7 @@ void LED::fadeIn()
 			if(fadeValue < cVal_.blue())
 				analogWrite(pinB_, fadeValue);
 
-			delay(fadeTime_);
+			delayMicroseconds(fadeTime_.to_microsecs());
 		}
 }
 
@@ -67,29 +67,30 @@ void LED::fadeOut()
 			if(cVal_.blue() > fadeValue)
 				analogWrite(pinB_, fadeValue);
 
-			delay(fadeTime_);
+			delayMicroseconds(fadeTime_.to_microsecs());
 		}
 
 }
 
 void LED::pulse(uint8_t pulsecount)
 {
-	uint32_t ft = this->fadeTime();
-	this->fadeTime(2);
+	Timing::Duration ft = this->fadeTime();
+	this->fadeTime(Timing::Duration::from_millisecs(2));
 	do
 	{
 		this->fadeIn();
 		this->fadeOut();
 		pulsecount--;
 	}while(pulsecount > 0);
+    this->fadeTime(ft);
 }
 
-void LED::fadeTime(uint32_t fadeTime)
+void LED::fadeTime(Timing::Duration fadeTime)
 {
 	fadeTime_ = fadeTime;
 }
 
-uint32_t LED::fadeTime()
+Timing::Duration LED::fadeTime()
 {
 	return fadeTime_;
 }

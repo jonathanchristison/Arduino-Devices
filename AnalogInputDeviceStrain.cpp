@@ -69,4 +69,13 @@ namespace AnalogInputDevice
     {
         return baseline_;
     }
+
+    void Strain::resolution(unsigned int resolution)
+    {
+        resolution_ = resolution;
+    }
+    unsigned int Strain::resolution()
+    {
+        return resolution_;
+    }
 }

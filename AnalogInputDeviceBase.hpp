@@ -26,27 +26,27 @@
 
 namespace AnalogInputDevice
 {
-    /**
-     * Base class for all analog input devices
-     */
-    class DeviceBase
-    {
-        public:
-        DeviceBase();
-        DeviceBase(uint8_t pin);
-        DeviceBase(uint8_t pin, Timing::Duration delayBetweenReads);
-        void init(uint8_t pin, Timing::Duration delayBetweenReads);
-        void pin(uint8_t pin);
-        void delayBetweenReads(Timing::Duration delayBetweenReads);
-        uint16_t pin();
-        Timing::Duration delayBetweenReads();
-        uint16_t value();
-        void value(int &array, int items);
+/**
+ * Base class for all analog input devices
+ */
+class DeviceBase
+{
+public:
+    DeviceBase();
+    DeviceBase(uint8_t pin);
+    DeviceBase(uint8_t pin, Timing::Duration delayBetweenReads);
+    void init(uint8_t pin, Timing::Duration delayBetweenReads);
+    void pin(uint8_t pin);
+    void delayBetweenReads(Timing::Duration delayBetweenReads);
+    uint16_t pin();
+    Timing::Duration delayBetweenReads();
+    uint16_t value();
+    void value(int& array, int items);
 
 
-        private:
-        uint8_t pin_;
-        Timing::Duration delayBetweenReads_;
-    };
+private:
+    uint8_t pin_;
+    Timing::Duration delayBetweenReads_;
+};
 }
 #endif

@@ -22,29 +22,30 @@
 
 #include "Commoninc.hpp"
 #include "CommonColour.hpp"
+#include "TimingDuration.hpp"
 
 namespace AnalogOutputDevice
 {
-    class LED
-    {
-        public:
-        LED(int pinR, int pinG, int pinB);
-        Colour colour();
-        void colour(Colour);
-        void fadeIn();
-        void fadeOut();
-        void fadeTime(uint32_t fadeTime);
-        uint32_t fadeTime();
-        void pulse(uint8_t pulsecount);
-        void instant();
+class LED
+{
+public:
+    LED(int pinR, int pinG, int pinB);
+    Colour colour();
+    void colour(Colour);
+    void fadeIn();
+    void fadeOut();
+    void fadeTime(Timing::Duration fadeTime);
+    Timing::Duration fadeTime();
+    void pulse(uint8_t pulsecount);
+    void instant();
 
-        private:
-        Colour cVal_;
+private:
+    Colour cVal_;
 
-        int pinR_;
-        int pinG_;
-        int pinB_;
+    int pinR_;
+    int pinG_;
+    int pinB_;
 
-        int fadeTime_;
-    };
+    Timing::Duration fadeTime_;
+};
 }

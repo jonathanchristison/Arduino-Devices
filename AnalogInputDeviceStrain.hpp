@@ -23,23 +23,25 @@
 
 namespace AnalogInputDevice
 {
-    class Strain : DeviceBase
-    {
-        public:
-        Strain();
-        Strain(int pin);
-        Strain(int pin, Timing::Duration bounceTime);
-        Strain(int pin, unsigned int resolution);
-        Strain(int pin, Timing::Duration bounceTime, unsigned int resolution);
+class Strain : DeviceBase
+{
+public:
+    Strain();
+    Strain(int pin);
+    Strain(int pin, Timing::Duration bounceTime);
+    Strain(int pin, unsigned int resolution);
+    Strain(int pin, Timing::Duration bounceTime, unsigned int resolution);
 
-        unsigned int averageValue();
-        unsigned int baseline();
-        void baseline(unsigned int baseline);
+    unsigned int averageValue();
+    unsigned int baseline();
+    void baseline(unsigned int baseline);
+    void resolution(unsigned int resolution);
+    unsigned int resolution();
 
 
-        private:
-        //Set the baseline nothing will be registered below this
-        unsigned int baseline_;
-        unsigned int resolution_;
-    };
+private:
+    //Set the baseline nothing will be registered below this
+    unsigned int baseline_;
+    unsigned int resolution_;
+};
 }

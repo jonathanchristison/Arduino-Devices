@@ -30,11 +30,11 @@
 
 class Colour : public Printable
 {
-    public:
+public:
     //None is the default
     Colour()
     {
-        this->init(0U,0U,0U);
+        this->init(0U, 0U, 0U);
     }
 
     Colour(byte red, byte green, byte blue)
@@ -49,7 +49,7 @@ class Colour : public Printable
         byte r = e;
         byte g = e;
         byte b = e;
-        return Colour(r,g,b);
+        return Colour(r, g, b);
     }
     void red(byte red)
     {
@@ -110,7 +110,7 @@ class Colour : public Printable
         n += p.print(blue_, DEC);
         return n;
     }
-    private:
+private:
     void init(byte red, byte green, byte blue)
     {
         red_ = red;
