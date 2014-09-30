@@ -24,58 +24,60 @@
 
 namespace AnalogInputDevice
 {
-    Strain::Strain(int pin)
-        : DeviceBase(pin)
-    {
-        resolution_ = 200;
-    }
-    Strain::Strain(int pin, Timing::Duration bounceTime)
-        : DeviceBase(pin, bounceTime)
-    {
-        resolution_ = 200;
-    }
-    Strain::Strain(int pin, unsigned int resolution)
-        : DeviceBase(pin)
-    {
-        resolution_ = resolution;
-    }
+Strain::Strain(int pin)
+    : DeviceBase(pin)
+{
+    resolution_ = 200;
+}
+Strain::Strain(int pin, Timing::Duration bounceTime)
+    : DeviceBase(pin, bounceTime)
+{
+    resolution_ = 200;
+}
+Strain::Strain(int pin, unsigned int resolution)
+    : DeviceBase(pin)
+{
+    resolution_ = resolution;
+}
 
-    Strain::Strain(int pin, Timing::Duration bounceTime, unsigned int resolution)
-        : DeviceBase(pin, bounceTime)
-    {
-        resolution_ = resolution;
-    }
+Strain::Strain(int pin, Timing::Duration bounceTime, unsigned int resolution)
+    : DeviceBase(pin, bounceTime)
+{
+    resolution_ = resolution;
+}
 
-    unsigned int Strain::averageValue()
+unsigned int Strain::averageValue()
+{
+    Average<uint16_t> average(resolution_);
+    for(int i = 0; i < resolution_; i++)
     {
-        Average<uint16_t> average(resolution_);
-        for(int i = 0; i < resolution_; i++)
+        uint16_t val = this->value();
+        if(val < this->baseline())
         {
-            uint16_t val = this->value();
-            if(val < this->baseline())
-                val = 0;
-            average.push(this->value());
-            delayMicroseconds(this->delayBetweenReads().to_microsecs());
+            val = 0;
         }
-        return average.mean();
+        average.push(this->value());
+        delayMicroseconds(this->delayBetweenReads().to_microsecs());
     }
+    return average.mean();
+}
 
-    void Strain::baseline(unsigned int baseline)
-    {
-        baseline_ = baseline;
-    }
+void Strain::baseline(unsigned int baseline)
+{
+    baseline_ = baseline;
+}
 
-    unsigned int Strain::baseline()
-    {
-        return baseline_;
-    }
+unsigned int Strain::baseline()
+{
+    return baseline_;
+}
 
-    void Strain::resolution(unsigned int resolution)
-    {
-        resolution_ = resolution;
-    }
-    unsigned int Strain::resolution()
-    {
-        return resolution_;
-    }
+void Strain::resolution(unsigned int resolution)
+{
+    resolution_ = resolution;
+}
+unsigned int Strain::resolution()
+{
+    return resolution_;
+}
 }

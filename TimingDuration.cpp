@@ -47,7 +47,7 @@ uint32_t Timing::Duration::sec() const
 
 void Timing::Duration::sec(uint32_t s)
 {
-        sec_ = static_cast<int32_t>(s);
+    sec_ = static_cast<int32_t>(s);
 }
 
 void Timing::Duration::nanosec(uint32_t ns)

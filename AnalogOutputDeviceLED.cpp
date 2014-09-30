@@ -33,7 +33,7 @@ LED::LED(int pinR, int pinG, int pinB)
 
 void LED::colour(Colour cval)
 {
-	cVal_ = cval;
+    cVal_ = cval;
 }
 
 Colour LED::colour()
@@ -43,56 +43,69 @@ Colour LED::colour()
 
 void LED::fadeIn()
 {
-		for(int fadeValue = 0; fadeValue < 255; fadeValue++)
-		{
-			if(fadeValue < cVal_.red())
-				analogWrite(pinR_, fadeValue);
-			if(fadeValue < cVal_.green())
-				analogWrite(pinG_, fadeValue);
-			if(fadeValue < cVal_.blue())
-				analogWrite(pinB_, fadeValue);
+    for(int fadeValue = 0; fadeValue < 255; fadeValue++)
+    {
+        if(fadeValue < cVal_.red())
+        {
+            analogWrite(pinR_, fadeValue);
+        }
+        if(fadeValue < cVal_.green())
+        {
+            analogWrite(pinG_, fadeValue);
+        }
+        if(fadeValue < cVal_.blue())
+        {
+            analogWrite(pinB_, fadeValue);
+        }
 
-			delayMicroseconds(fadeTime_.to_microsecs());
-		}
+        delayMicroseconds(fadeTime_.to_microsecs());
+    }
 }
 
 void LED::fadeOut()
 {
-		for(int fadeValue = 255; fadeValue > -1; fadeValue--)
-		{
-			if(cVal_.red() > fadeValue)
-				analogWrite(pinR_, fadeValue);
-			if(cVal_.green() > fadeValue)
-				analogWrite(pinG_, fadeValue);
-			if(cVal_.blue() > fadeValue)
-				analogWrite(pinB_, fadeValue);
+    for(int fadeValue = 255; fadeValue > -1; fadeValue--)
+    {
+        if(cVal_.red() > fadeValue)
+        {
+            analogWrite(pinR_, fadeValue);
+        }
+        if(cVal_.green() > fadeValue)
+        {
+            analogWrite(pinG_, fadeValue);
+        }
+        if(cVal_.blue() > fadeValue)
+        {
+            analogWrite(pinB_, fadeValue);
+        }
 
-			delayMicroseconds(fadeTime_.to_microsecs());
-		}
+        delayMicroseconds(fadeTime_.to_microsecs());
+    }
 
 }
 
 void LED::pulse(uint8_t pulsecount)
 {
-	Timing::Duration ft = this->fadeTime();
-	this->fadeTime(Timing::Duration::from_millisecs(2));
-	do
-	{
-		this->fadeIn();
-		this->fadeOut();
-		pulsecount--;
-	}while(pulsecount > 0);
+    Timing::Duration ft = this->fadeTime();
+    this->fadeTime(Timing::Duration::from_millisecs(2));
+    do
+    {
+        this->fadeIn();
+        this->fadeOut();
+        pulsecount--;
+    }
+    while(pulsecount > 0);
     this->fadeTime(ft);
 }
 
 void LED::fadeTime(Timing::Duration fadeTime)
 {
-	fadeTime_ = fadeTime;
+    fadeTime_ = fadeTime;
 }
 
 Timing::Duration LED::fadeTime()
 {
-	return fadeTime_;
+    return fadeTime_;
 }
 
 void LED::instant()

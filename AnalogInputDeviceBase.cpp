@@ -25,51 +25,51 @@
 namespace AnalogInputDevice
 {
 
-    DeviceBase::DeviceBase()
-    {
-        this->init(0, Timing::Duration::zero());
-    }
+DeviceBase::DeviceBase()
+{
+    this->init(0, Timing::Duration::zero());
+}
 
-    DeviceBase::DeviceBase(uint8_t pin)
-    {
-        this->init(pin, Timing::Duration::zero());
-    }
+DeviceBase::DeviceBase(uint8_t pin)
+{
+    this->init(pin, Timing::Duration::zero());
+}
 
-    DeviceBase::DeviceBase(uint8_t pin, Timing::Duration delayBetweenReads)
-    {
-        this->init(pin, delayBetweenReads);
-    }
+DeviceBase::DeviceBase(uint8_t pin, Timing::Duration delayBetweenReads)
+{
+    this->init(pin, delayBetweenReads);
+}
 
-    void DeviceBase::init(uint8_t pin, Timing::Duration delayBetweenReads)
-    {
-        pin_ = pin;
-        delayBetweenReads_ = delayBetweenReads;
-    }
+void DeviceBase::init(uint8_t pin, Timing::Duration delayBetweenReads)
+{
+    pin_ = pin;
+    delayBetweenReads_ = delayBetweenReads;
+}
 
-    void DeviceBase::pin(uint8_t pin)
-    {
-        pin_ = pin;
-    }
+void DeviceBase::pin(uint8_t pin)
+{
+    pin_ = pin;
+}
 
-    void DeviceBase::delayBetweenReads(Timing::Duration delayBetweenReads)
-    {
-        delayBetweenReads_ = delayBetweenReads;
-    }
+void DeviceBase::delayBetweenReads(Timing::Duration delayBetweenReads)
+{
+    delayBetweenReads_ = delayBetweenReads;
+}
 
-    uint16_t DeviceBase::pin()
-    {
-        return pin_;
-    }
+uint16_t DeviceBase::pin()
+{
+    return pin_;
+}
 
-    Timing::Duration DeviceBase::delayBetweenReads()
-    {
-        return delayBetweenReads_;
-    }
+Timing::Duration DeviceBase::delayBetweenReads()
+{
+    return delayBetweenReads_;
+}
 
-    uint16_t DeviceBase::value()
-    {
-        return analogRead(this->pin());
-    }
+uint16_t DeviceBase::value()
+{
+    return analogRead(this->pin());
+}
 
 /*
  * void DeviceBase::value(int &array, int items)
