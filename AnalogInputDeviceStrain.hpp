@@ -23,7 +23,7 @@
 
 namespace AnalogInputDevice
 {
-class Strain : DeviceBase
+class Strain : public DeviceBase
 {
 public:
     Strain();

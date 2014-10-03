@@ -45,10 +45,32 @@ public:
     Colour energy(const uint16_t energy)
     {
         uint16_t e = energy;
-        e = map(e, 0, 1023, 0, 255);
-        byte r = e;
-        byte g = e;
-        byte b = e;
+        map(e, 0, 1023, 0, 765);
+        byte r,g,b;
+        r = g = b = 0;
+
+        if( (e / 255) < 1)
+        {
+            r = e % 255;
+        }
+        else if( 1 == (e / 255) )
+        {
+            r = 255;
+            g = e % 255;
+        }
+        else if( 2 == (e / 255))
+        {
+             r = 255;
+             g = 255;
+             b = e % 255;
+        }
+        else if( 3 == (e / 255))
+        {
+            r = 255;
+            g = 255;
+            b = 255;
+        }
+
         return Colour(r, g, b);
     }
     void red(byte red)
@@ -86,10 +108,12 @@ public:
 
     void hex(String hex)
     {
+        hex.trim();
         unsigned long hl = strtoul(hex.c_str(), NULL, 16);
-        if(hl > 1677215)
+        if(hl > 16777215 || hex.length() < 1)
         {
-            Serial.println(F("Invalid Colour Code"));
+            Serial.print(F("Invalid Colour Code:"));
+            Serial.println("'" + hex + "'");
         }
         else
         {
