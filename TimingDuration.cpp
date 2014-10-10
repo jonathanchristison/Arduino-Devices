@@ -30,9 +30,10 @@
 
 
 Timing::Duration::Duration()
-    :  sec_(0),
-       nsec_(0)
-{ }
+{
+    sec_ = 0;
+    nsec_ = 0;
+}
 
 Timing::Duration::Duration(uint32_t s, uint32_t ns)
 {
@@ -43,6 +44,11 @@ Timing::Duration::Duration(uint32_t s, uint32_t ns)
 uint32_t Timing::Duration::sec() const
 {
     return sec_;
+}
+
+uint32_t Timing::Duration::nanosec() const
+{
+    return nsec_;
 }
 
 void Timing::Duration::sec(uint32_t s)
@@ -70,77 +76,6 @@ const Timing::Duration Timing::Duration::from_secs(double seconds)
     uint32_t int_secs =  static_cast<uint32_t>(seconds);
     uint32_t nanos = static_cast<uint32_t>((seconds - int_secs) * NS);
     return Duration(int_secs, nanos);
-}
-
-uint32_t Timing::Duration::nanosec() const
-{
-    return nsec_;
-}
-
-int Timing::Duration::compare(const Duration& that) const
-{
-    int ret;
-
-    if(sec_ >= that.sec_ && (sec_ > that.sec_ || nsec_ > that.nsec_))
-    {
-        ret = 1;
-    }
-    else if(sec_ <= that.sec_ && (sec_ < that.sec_ || nsec_ < that.nsec_))
-    {
-        ret = -1;
-    }
-    else
-    {
-        ret = 0;
-    }
-
-    return ret;
-}
-
-uint32_t Timing::Duration::to_millisecs() const
-{
-    return (static_cast<uint32_t>(sec_) * MS) + (nsec_ / MiS);
-}
-
-uint32_t Timing::Duration::to_microsecs() const
-{
-    return (static_cast<uint32_t>(sec_) * MiS) + (nsec_ / MS);
-}
-
-
-double Timing::Duration::to_secs() const
-{
-    return static_cast<double>(sec_) + (static_cast<double>(nsec_) / NS);
-}
-
-bool
-Timing::Duration::operator >(const Duration& that) const
-{
-    return sec_ >= that.sec_ && (sec_ > that.sec_ || nsec_ > that.nsec_);
-}
-
-bool
-Timing::Duration::operator >=(const Duration& that) const
-{
-    return sec_ >= that.sec_ && nsec_ >= that.nsec_;
-}
-
-bool
-Timing::Duration::operator ==(const Duration& that) const
-{
-    return sec_ == that.sec_ && nsec_ == that.nsec_;
-}
-
-bool
-Timing::Duration::operator <=(const Duration& that) const
-{
-    return sec_ <= that.sec_ && nsec_ <= that.nsec_;
-}
-
-bool
-Timing::Duration::operator <(const Duration& that) const
-{
-    return sec_ <= that.sec_ && (sec_ < that.sec_ || nsec_ < that.nsec_);
 }
 
 Timing::Duration&

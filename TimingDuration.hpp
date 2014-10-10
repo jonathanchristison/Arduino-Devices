@@ -25,10 +25,17 @@
 #ifndef DURATION_HPP
 #define DURATION_HPP
 #include "Commoninc.hpp"
+#include "Timing.hpp"
+#include "TimingBase.hpp"
 
 namespace Timing
 {
-class Duration
+    class Duration;
+}
+
+namespace Timing
+{
+class Duration : public TimingBase<Duration>
 {
 public:
     static const Duration zero();       // {0, 0}
@@ -43,6 +50,9 @@ public:
      */
     explicit Duration(uint32_t sec, uint32_t nanosec);
 
+    uint32_t nanosec() const;
+
+    uint32_t sec() const;
 
     /**
      * Create a Duration from a number of microseconds
@@ -61,74 +71,16 @@ public:
     static const Duration from_secs(double seconds);
 
     /**
-     * @return number of seconds
-     */
-    uint32_t sec() const;
-    /**
      * Set number of seconds
      * @param s number of seconds
      */
     void    sec(uint32_t s);
 
     /**
-     * @return number of nanoseconds
-     */
-    uint32_t nanosec() const;
-    /**
      * Set number of nanoseconds
      * @param ns number of nanoseconds
      */
     void     nanosec(uint32_t ns);
-
-    /**
-     * Returns an integer value for a comparison of two Durations:
-     * 1 if this Duration is greater than the comparator (that)
-     * -1 if the Duration is less than the comparator (that)
-     * 0 if the Duration matches the comparator (that)
-     *
-     * @param that Duration to compare
-     *
-     * @return comparison result
-     */
-    int compare(const Duration& that) const;
-
-    /**
-     * Returns true if the Duration is greater than the comparator
-     *
-     * @param that Duration to compare
-     * @return comparison result
-     */
-    bool operator >(const Duration& that) const;
-
-    /**
-     * Returns true if the Duration is greater than or equal to the comparator
-     * @param Duration &that
-     */
-    bool operator >=(const Duration& that) const;
-
-    /**
-     * Returns true if the Duration is equal to the comparator
-     *
-     * @param that Duration to compare
-     * @return comparison result
-     */
-    bool operator ==(const Duration& that) const;
-
-    /**
-     * Returns true if the Duration is less than or equal to the comparator
-     *
-     * @param that Duration to compare
-     * @return comparison result
-     */
-    bool operator <=(const Duration& that) const;
-
-    /**
-     * Returns true if the Duration is less than the comparator
-     *
-     * @param that Duration to compare
-     * @return comparison result
-     */
-    bool operator <(const Duration& that) const;
 
     /**
      * Add a Duration to this Duration
@@ -169,30 +121,6 @@ public:
      * @return the Duration - other
      */
     const Duration operator -(const Duration& other) const;
-    /**
-     * Returns this Duration in milliseconds.
-     *
-     * @return the duration in milliseconds
-     */
-    uint32_t to_millisecs() const;
-
-    /**
-     * Returns this Duration in micro-seconds.
-     *
-     * @return the duration in micro-seconds
-     */
-    uint32_t to_microsecs() const;
-
-    /**
-     * Returns this Duration in seconds.
-     *
-     * @return the duration in seconds
-     */
-    double to_secs() const;
-
-private:
-    uint32_t sec_;
-    uint32_t nsec_;
 };
 #if 0
 /**
