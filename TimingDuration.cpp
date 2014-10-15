@@ -24,10 +24,6 @@
  */
 
 #include "TimingDuration.hpp"
-#define MS 1000
-#define MiS 1000000
-#define NS 1000000000
-
 
 Timing::Duration::Duration()
 {
