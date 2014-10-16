@@ -57,6 +57,7 @@ void Timing::Duration::nanosec(uint32_t ns)
     nsec_ = ns;
 }
 
+/*
 const Timing::Duration Timing::Duration::from_microsecs(uint32_t microseconds)
 {
     return Duration(microseconds / MiS, static_cast<uint32_t>((microseconds % MiS) * MS));
@@ -73,6 +74,7 @@ const Timing::Duration Timing::Duration::from_secs(double seconds)
     uint32_t nanos = static_cast<uint32_t>((seconds - int_secs) * NS);
     return Duration(int_secs, nanos);
 }
+*/
 
 Timing::Duration&
 Timing::Duration::operator +=(const Duration& a_ti)

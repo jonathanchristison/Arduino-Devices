@@ -8,6 +8,24 @@
 /** Class for converting durations **/
 #   include "TimingBase.hpp"
 #   include "TimingDuration.hpp"
+#   include "TimingTime.hpp"
 
-
+/*
+bool operator == (Timing::Time& lhs, const Timing::Duration& rhs)
+{
+    return lhs.sec() == rhs.sec() && lhs.nanosec() == rhs.nanosec() ? true : false;
+}
+bool operator >= (const Timing::Time& lhs, const Timing::Duration& rhs)
+{
+    return lhs->sec() >= rhs->sec() && lhs->nanosec() >= rhs->nanosec() ? true : false;
+}
+bool operator > (const Timing::Time& lhs, const Timing::Duration& rhs)
+{
+    return lhs->sec() > rhs->sec() && lhs->nanosec() > rhs->nanosec() ? true : false;
+}
+bool operator < (const Timing::Time& lhs, const Timing::Duration& rhs)
+{
+    return lhs->sec() < rhs->sec() && lhs->nanosec() < rhs->nanosec() ? true : false;
+}
+*/
 #endif

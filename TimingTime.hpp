@@ -27,6 +27,7 @@
 #include "Commoninc.hpp"
 #include "Timing.hpp"
 #include "TimingBase.hpp"
+#include "TimingDuration.hpp"
 
 namespace Timing
 {
@@ -42,20 +43,31 @@ public:
     {
         start_ = micros();
     }
-    uint32_t nanosec() const
+    Time(const Time &time)
     {
-        this->tick();
-        return nsec_;
+        nsec_ = time.nsec_;
+        sec_ = time.sec_;
     }
-    uint32_t sec() const
+    explicit Time(uint32_t sec, uint32_t nanosec)
     {
-        this->tick();
-        return sec_;
+        sec_ = sec;
+        nsec_ = nanosec;
     }
 
     void tick()
     {
-        this = satic_cast<Time> Timing::Duration::from_microsecs(micros() - start_);
+        this->from_microsecs(micros() - start_);
+    }
+
+    uint32_t nanosec()
+    {
+        this->tick();
+        return nsec_;
+    }
+    uint32_t sec()
+    {
+        this->tick();
+        return sec_;
     }
 
     /**
@@ -99,25 +111,10 @@ public:
     const Time operator -(const Time& other) const;
 
 private:
-    const unsigned long start_;
+    unsigned long start_;
 };
+}
 
-bool operator == (const Timing::Time& lhs, const Timing::Duration& rhs)
-{
-    return lhs->sec() == rhs->sec() && lhs->nanosec() == rhs->nanosec() ? true : false;
-}
-bool operator >= (const Timing::Time& lhs, const Timing::Duration& rhs)
-{
-    return lhs->sec() >= rhs->sec() && lhs->nanosec() >= rhs->nanosec() ? true : false;
-}
-bool operator > (const Timing::Time& lhs, const Timing::Duration& rhs)
-{
-    return lhs->sec() > rhs->sec() && lhs->nanosec() > rhs->nanosec() ? true : false;
-}
-bool operator < (const Timing::Time& lhs, const Timing::Duration& rhs)
-{
-    return lhs->sec() < rhs->sec() && lhs->nanosec() < rhs->nanosec() ? true : false;
-}
 #if 0
 /**
  * Multiply Time by a factor
@@ -152,5 +149,4 @@ const Time operator /(const Time& lhs,
 
 };
 #endif
-}
 #endif

@@ -54,21 +54,11 @@ public:
 
     uint32_t sec() const;
 
-    /**
-     * Create a Duration from a number of microseconds
-     * @param microseconds number of microseconds
-     */
+/*
     static const Duration from_microsecs(uint32_t microseconds);
-    /**
-     * Create a Duration from a number of milliseconds
-     * @param miliseconds number of milliseconds
-     */
     static const Duration from_millisecs(uint32_t milliseconds);
-    /**
-     * Create a Duration from a number of seconds
-     * @param seconds number of seconds
-     */
     static const Duration from_secs(double seconds);
+*/
 
     /**
      * Set number of seconds

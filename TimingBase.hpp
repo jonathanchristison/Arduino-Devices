@@ -20,9 +20,32 @@ class TimingBase
         nsec_ = nanosec;
     }
 
-    virtual uint32_t nanosec() const=0;
+    virtual uint32_t nanosec()
+    {
+        return nsec_;
+    }
 
-    virtual uint32_t sec() const=0;
+    virtual uint32_t sec()
+    {
+        return sec_;
+    }
+
+    static const T from_microsecs(uint32_t microseconds)
+    {
+        return T(microseconds / MiS, static_cast<uint32_t>((microseconds % MiS) * MS));
+    }
+
+    static const T from_millisecs(uint32_t milliseconds)
+    {
+        return T(milliseconds / MS, static_cast<uint32_t>((milliseconds % MS) * MiS));
+    }
+
+    static const T from_secs(double seconds)
+    {
+        uint32_t int_secs =  static_cast<uint32_t>(seconds);
+        uint32_t nanos = static_cast<uint32_t>((seconds - int_secs) * NS);
+        return T(int_secs, nanos);
+    }
 
     int compare(const T& that) const
     {
@@ -44,27 +67,32 @@ class TimingBase
         return ret;
     }
 
-    bool operator >(const T& that) const
+    template<class O>
+    bool operator >(const O& that) const
     {
         return sec_ >= that.sec_ && (sec_ > that.sec_ || nsec_ > that.nsec_);
     }
 
-    bool operator >=(const T& that) const
+    template<class O>
+    bool operator >=(const O& that)
     {
-        return sec_ >= that.sec_ && nsec_ >= that.nsec_;
+        return sec() >= that.sec() && nanosec() >= that.nanosec();
     }
 
-    bool operator ==(const T& that) const
+    template<class O>
+    bool operator ==(const O& that) const
     {
         return sec_ == that.sec_ && nsec_ == that.nsec_;
     }
 
-    bool operator <=(const T& that) const
+    template<class O>
+    bool operator <=(const O& that) const
     {
         return sec_ <= that.sec_ && nsec_ <= that.nsec_;
     }
 
-    bool operator <(const T& that) const
+    template<class O>
+    bool operator <(const O& that) const
     {
         return sec_ <= that.sec_ && (sec_ < that.sec_ || nsec_ < that.nsec_);
     }
