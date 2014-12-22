@@ -30,7 +30,7 @@
 
 namespace Timing
 {
-    class Duration;
+class Duration;
 }
 
 namespace Timing
@@ -54,11 +54,11 @@ public:
 
     uint32_t sec() const;
 
-/*
-    static const Duration from_microsecs(uint32_t microseconds);
-    static const Duration from_millisecs(uint32_t milliseconds);
-    static const Duration from_secs(double seconds);
-*/
+    /*
+        static const Duration from_microsecs(uint32_t microseconds);
+        static const Duration from_millisecs(uint32_t milliseconds);
+        static const Duration from_secs(double seconds);
+    */
 
     /**
      * Set number of seconds

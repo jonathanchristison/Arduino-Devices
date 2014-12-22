@@ -37,6 +37,8 @@ public:
     void baseline(unsigned int baseline);
     void resolution(unsigned int resolution);
     unsigned int resolution();
+    unsigned int averageEdge();
+    unsigned int peakValueAverage();
 
 
 private:

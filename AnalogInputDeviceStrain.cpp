@@ -76,8 +76,63 @@ void Strain::resolution(unsigned int resolution)
 {
     resolution_ = resolution;
 }
+
 unsigned int Strain::resolution()
 {
     return resolution_;
 }
+
+unsigned int Strain::averageEdge()
+{
+
+    Average<uint16_t> sl1(resolution_ / 2);
+    Average<uint16_t> sl2(resolution_ / 2);
+
+    do
+    {
+        for(int i = 0; i < resolution_ / 2; i++)
+        {
+            uint16_t val = this->value();
+            if(val < this->baseline())
+            {
+                val = 0;
+            }
+            sl1.push(this->value());
+            delayMicroseconds(this->delayBetweenReads().to_microsecs());
+        }
+
+        for(int i = 0; i < resolution_ / 2; i++)
+        {
+            uint16_t val = this->value();
+            if(val < this->baseline())
+            {
+                val = 0;
+            }
+            sl2.push(this->value());
+            delayMicroseconds(this->delayBetweenReads().to_microsecs());
+        }
+    }
+    while(sl1.mean() < sl2.mean() && sl1.stddev() < sl2.stddev());
+
+    return((sl1.mean() + sl2.mean()) / 2);
+}
+
+unsigned int Strain::peakValueAverage()
+{
+    Average<uint16_t> samples(resolution_);
+    uint16_t val;
+
+    do
+    {
+        val = (uint16_t) this->averageValue();
+        if(val > samples.mean())
+        {
+            samples.push(val);
+        }
+    }
+    while(val >  samples.mean());
+
+    return samples.mean();
+}
+
 }

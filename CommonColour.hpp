@@ -46,25 +46,25 @@ public:
     {
         uint16_t e = energy;
         map(e, 0, 1023, 0, 765);
-        byte r,g,b;
+        byte r, g, b;
         r = g = b = 0;
 
-        if( (e / 255) < 1)
+        if((e / 255) < 1)
         {
             r = e % 255;
         }
-        else if( 1 == (e / 255) )
+        else if(1 == (e / 255))
         {
             r = 255;
             g = e % 255;
         }
-        else if( 2 == (e / 255))
+        else if(2 == (e / 255))
         {
-             r = 255;
-             g = 255;
-             b = e % 255;
+            r = 255;
+            g = 255;
+            b = e % 255;
         }
-        else if( 3 == (e / 255))
+        else if(3 == (e / 255))
         {
             r = 255;
             g = 255;

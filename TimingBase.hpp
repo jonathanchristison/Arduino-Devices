@@ -7,7 +7,7 @@ namespace Timing
 template<typename T>
 class TimingBase
 {
-    public:
+public:
     TimingBase()
     {
         sec_ = 0UL;
@@ -30,17 +30,17 @@ class TimingBase
         return sec_;
     }
 
-    static const T from_microsecs(uint32_t microseconds)
+    static T from_microsecs(uint32_t microseconds)
     {
         return T(microseconds / MiS, static_cast<uint32_t>((microseconds % MiS) * MS));
     }
 
-    static const T from_millisecs(uint32_t milliseconds)
+    static T from_millisecs(uint32_t milliseconds)
     {
         return T(milliseconds / MS, static_cast<uint32_t>((milliseconds % MS) * MiS));
     }
 
-    static const T from_secs(double seconds)
+    static T from_secs(double seconds)
     {
         uint32_t int_secs =  static_cast<uint32_t>(seconds);
         uint32_t nanos = static_cast<uint32_t>((seconds - int_secs) * NS);

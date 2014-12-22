@@ -31,7 +31,7 @@
 
 namespace Timing
 {
-    class Time;
+class Time;
 }
 
 namespace Timing
@@ -43,7 +43,7 @@ public:
     {
         start_ = micros();
     }
-    Time(const Time &time)
+    Time(const Time& time)
     {
         nsec_ = time.nsec_;
         sec_ = time.sec_;
@@ -56,7 +56,9 @@ public:
 
     void tick()
     {
-        this->from_microsecs(micros() - start_);
+        Timing::Time t = this->from_microsecs(micros() - start_);
+        nsec_ = t.nsec_;
+        sec_ = t.sec_;
     }
 
     uint32_t nanosec()
@@ -64,6 +66,7 @@ public:
         this->tick();
         return nsec_;
     }
+
     uint32_t sec()
     {
         this->tick();
@@ -125,7 +128,7 @@ private:
  * @return factor * Time
  */
 const Time operator *(uuint32_t lhs,
-                          const Time& rhs);
+                      const Time& rhs);
 
 /**
  * Multiply Time by a factor
@@ -136,7 +139,7 @@ const Time operator *(uuint32_t lhs,
  * @return Time * factor
  */
 const Time operator *(const Time& lhs,
-                          uuint32_t rhs);
+                      uuint32_t rhs);
 
 /**
  * Divide Time by a factor
@@ -145,7 +148,7 @@ const Time operator *(const Time& lhs,
  * @param rhs factor by which to divide
  */
 const Time operator /(const Time& lhs,
-                          uuint32_t rhs);
+                      uuint32_t rhs);
 
 };
 #endif
