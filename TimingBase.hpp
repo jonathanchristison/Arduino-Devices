@@ -47,6 +47,16 @@ public:
         return T(int_secs, nanos);
     }
 
+    static T from_minutes(double minutes)
+    {
+        return T::from_secs((minutes * 60));
+    }
+
+    static T from_hours(double hours)
+    {
+        return T::from_minutes((hours * 60));
+    }
+
     int compare(const T& that) const
     {
         int ret;
@@ -108,6 +118,16 @@ public:
     double to_secs() const
     {
         return static_cast<double>(sec_) + (static_cast<double>(nsec_) / NS);
+    }
+
+    double to_minutes() const
+    {
+        return static_cast<double>(this->to_secs() / 60);
+    }
+
+    double to_hours() const
+    {
+        return static_cast<double>(this->to_minutes() / 60);
     }
 
 protected:
